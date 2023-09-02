@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mainFrag">
+
+    <fragment
+        android:id="@+id/mainFrag"
+        android:name="com.example.faceshape.fragments.MainFrag"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFrag_to_faceShapeFrag"
+            app:destination="@id/faceShapeFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/faceShapeFrag"
+        android:name="com.example.faceshape.fragments.FaceShapeFrag"
+        android:label="fragment_face_shape"
+        tools:layout="@layout/fragment_face_shape" />
+    <fragment
+        android:id="@+id/savedFrag"
+        android:name="com.example.faceshape.fragments.SavedFrag"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" />
+    <fragment
+        android:id="@+id/settingFrag"
+        android:name="com.example.faceshape.fragments.SettingFrag"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

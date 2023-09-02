@@ -1,0 +1,98 @@
+
+
+plugins {
+    id 'com.android.application'
+
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
+}
+
+android {
+    namespace 'com.example.faceshape'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.faceshape"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        python {
+
+            version "3.8"
+            pyc {
+                src false
+            }
+            pip {
+                // A requirement specifier, with or without a version number:
+                install "Pillow"
+                install "face_recognition"
+
+                // An sdist or wheel filename, relative to the project directory:
+                install "numpy"
+                install "joblib"
+                install "scikit-learn"
+                install "sklearn"
+                install "scikit-learn[alldeps]"
+
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    sourceSets {
+        main {
+            python.srcDir "src/main/python"
+        }
+    }
+
+}
+
+
+
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    implementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation 'org.jpmml:jpmml-evaluator:1.4.2'
+    implementation 'org.jpmml:jpmml-model:1.4.2'
+    implementation 'org.jpmml:pmml-model:1.4.2'
+    implementation 'org.jpmml:pmml-evaluator:1.4.2'
+    implementation('com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava') {
+        exclude group: 'com.google.guava', module: 'listenablefuture'
+    }
+
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha10")
+    // To use constraintlayout in compose
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha10")
+
+}

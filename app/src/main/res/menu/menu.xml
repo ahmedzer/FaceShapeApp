@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainFrag"
+        android:visible="true"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+
+        android:visible="true"
+        android:checked="false"
+        android:title="Saved"
+        android:icon="@drawable/style"/>
+
+    <item
+
+        android:visible="true"
+        android:checked="false"
+        android:title="Settings"
+        android:icon="@drawable/settings"/>
+</menu>
