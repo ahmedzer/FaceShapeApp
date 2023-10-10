@@ -14,9 +14,9 @@ Ceci est une application mobile développée en utilisant Kotlin qui permet de d
 
 
 ## Captures d'écran
-![386896497_229080816838558_9074575181351842555_n](https://github.com/ahmedzer/FaceShapeApp/assets/44112452/a79e75ce-3246-4648-8290-3f1121b12c07)
-![387645452_1669230943598527_8967647848977396186_n](https://github.com/ahmedzer/FaceShapeApp/assets/44112452/b0baed68-a74a-4d1d-b3da-61be12628a60)
-![370290197_867030801473160_6305799788339653873_n](https://github.com/ahmedzer/FaceShapeApp/assets/44112452/fac1bed8-8a25-4bff-9991-2682d09cc31a)
+<img src="https://github.com/ahmedzer/FaceShapeApp/assets/44112452/a79e75ce-3246-4648-8290-3f1121b12c07" width=25% height=25%>
+<img src="https://github.com/ahmedzer/FaceShapeApp/assets/44112452/b0baed68-a74a-4d1d-b3da-61be12628a60" width=25% height=25%>
+<img src="https://github.com/ahmedzer/FaceShapeApp/assets/44112452/fac1bed8-8a25-4bff-9991-2682d09cc31a7" width=25% height=25%>
 
 [Insérer ici des captures d'écran de l'application en action]
 
