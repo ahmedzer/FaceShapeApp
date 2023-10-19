@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#3E232323"
+            app:tint="#6A232323"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

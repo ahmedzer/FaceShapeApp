@@ -1,4 +1,5 @@
-
+# Copyright (c) 2023 Hussein Sajid
+# This code is licensed under the MIT License.
 from PIL import Image, ImageDraw
 import face_recognition
 

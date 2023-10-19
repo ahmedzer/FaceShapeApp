@@ -6,6 +6,7 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -35,6 +36,24 @@ class MainFrag : Fragment(),OnItemClickListener {
     lateinit var gridRV : RecyclerView
      var YOUR_REQUEST_CODE=1
 
+    lateinit var VPAdapter : SliderAdapter
+    private var currentPage = 0
+    private val DELAY_MS: Long = 5000 // Delay between page changes (3 seconds in this example)
+    private val PERIOD_MS: Long = 3000 // Time period for the task
+
+    private val handler = Handler()
+    private val runnable = object : Runnable {
+        override fun run() {
+            if (currentPage == 2) {
+                currentPage = 0
+            } else {
+                currentPage++
+            }
+            viewPager.setCurrentItem(currentPage, true)
+            handler.postDelayed(this, DELAY_MS)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,7 +82,8 @@ class MainFrag : Fragment(),OnItemClickListener {
         slideList.add(sld2)
         slideList.add(sld3)
 
-        viewPager.adapter = SliderAdapter(requireContext(),slideList)
+        VPAdapter = SliderAdapter(requireContext(),slideList)
+        viewPager.adapter = VPAdapter
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(
                 position: Int,
@@ -177,6 +197,17 @@ class MainFrag : Fragment(),OnItemClickListener {
 
 
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        // Start the auto-sliding when your activity is resumed
+        handler.postDelayed(runnable, DELAY_MS)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Stop the auto-sliding when your activity is paused
+        handler.removeCallbacks(runnable)
     }
 
     private fun getImagePathFromUri(uri: Uri): String? {

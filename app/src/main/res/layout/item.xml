@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sqr"
-        app:tint="#3E232323" />
+        app:tint="#6A232323" />
 
     <TextView
         android:id="@+id/textView"
