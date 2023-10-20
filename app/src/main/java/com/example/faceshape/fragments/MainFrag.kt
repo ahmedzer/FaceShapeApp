@@ -1,9 +1,12 @@
 package com.example.faceshape.fragments
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +15,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.findNavController
@@ -40,6 +46,15 @@ class MainFrag : Fragment(),OnItemClickListener {
     private var currentPage = 0
     private val DELAY_MS: Long = 5000 // Delay between page changes (3 seconds in this example)
     private val PERIOD_MS: Long = 3000 // Time period for the task
+
+    private val dialog by lazy {//dialog pour selectioner l'image
+        Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.img_select)
+            setCancelable(true)
+            window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        }
+    }
 
     private val handler = Handler()
     private val runnable = object : Runnable {
@@ -172,7 +187,12 @@ class MainFrag : Fragment(),OnItemClickListener {
     override fun onItemClick(position: Int) {
         when(position) {
             3-> {
-                openGallery()
+                dialog.show()
+                val okBtn = dialog.findViewById<Button>(R.id.button2)
+                okBtn.setOnClickListener {
+                    openGallery()
+                    dialog.dismiss()
+                }
             }
         }
     }

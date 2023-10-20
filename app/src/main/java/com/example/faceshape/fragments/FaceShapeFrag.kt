@@ -15,11 +15,18 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.example.faceshape.Adapters.GridAdapter
+import com.example.faceshape.Entities.ItemSlide
 import com.example.faceshape.R
+import com.example.faceshape.utils.OnItemClickListener
+import com.example.faceshape.utils.ZommCenterLayoutManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,9 +35,10 @@ import java.io.File
 
 
 @OptIn(DelicateCoroutinesApi::class)
-class FaceShapeFrag : Fragment() {
+class FaceShapeFrag : Fragment(),OnItemClickListener {
     lateinit var faceImage:ImageView
-
+    lateinit var RV:RecyclerView
+    lateinit var textView6: TextView
     private val dialog by lazy {//dialog de confimation de commande
         Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -55,8 +63,9 @@ class FaceShapeFrag : Fragment() {
 
         faceImage = requireActivity().findViewById(R.id.imageView3)
         val predictBtn = requireActivity().findViewById<Button>(R.id.button)
-
+        RV = requireActivity().findViewById<RecyclerView>(R.id.celebRV)
         val faceShapeTxt = requireActivity().findViewById<TextView>(R.id.textView4)
+        textView6 = requireActivity().findViewById(R.id.textView6)
 
         val imgPath = arguments?.getString("imgPath")
 
@@ -77,7 +86,7 @@ class FaceShapeFrag : Fragment() {
                     val PyImgToDf = py.getModule("ImgToDf")
                     val res = PyImgToDf.callAttr("make_face_df",imgPath)
                     val predictModel = py.getModule("predict")
-                    val assetFinderPath = context!!.filesDir!!.parentFile?.absolutePath + "/files/chaquopy/AssetFinder/app"
+                    val assetFinderPath = requireContext().filesDir!!.parentFile?.absolutePath + "/files/chaquopy/AssetFinder/app"
                     val faceShape = predictModel.callAttr("predict",assetFinderPath,res)
                     launch(Dispatchers.Main) {
                         val newImg = imgPath+"_NEW_rotated_pts.jpg"
@@ -85,6 +94,11 @@ class FaceShapeFrag : Fragment() {
                         faceShapeTxt.setText("Your face shape is : ${faceShape.toString()}")
                         Log.d("Error",faceShape.toString())
                         closeDialog()
+                        textView6.visibility = View.VISIBLE
+                        RV.visibility = View.VISIBLE
+                        RV.layoutManager =ZommCenterLayoutManager(requireContext())
+                        showFaceShapeImg(faceShape.toString())
+                        predictBtn.visibility = View.GONE
                     }
                 }
                 catch (e:java.lang.Exception){
@@ -135,6 +149,20 @@ class FaceShapeFrag : Fragment() {
     }
 
     private fun showFaceShapeImg(type:String) {
+        when(type){
+            "Square"->{
+                val rvItemList = ArrayList<ItemSlide>()
+                rvItemList.add(ItemSlide(R.drawable.sqr1,"Diane Kruger"))
 
+                rvItemList.add(ItemSlide(R.drawable.sqr2,"Angelina Jolie"))
+                rvItemList.add(ItemSlide(R.drawable.sqr3,"Keira Knightley"))
+                rvItemList.add(ItemSlide(R.drawable.sqr4,"Kareena Kapoor Khan"))
+                RV.adapter = GridAdapter(requireContext(),rvItemList,this)
+            }
+        }
+    }
+
+    override fun onItemClick(position: Int) {
+        Log.d("click","$position")
     }
 }
